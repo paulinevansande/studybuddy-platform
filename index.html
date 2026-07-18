@@ -1,1 +1,230 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>StudyBuddy – Bijles door studenten</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --primary: #6c5ce7;
+      --secondary: #ffeaa7;
+      --bg: #f8f5ff;
+    }
+    body {
+      font-family: system-ui, sans-serif;
+      margin: 0;
+      background: var(--bg);
+      color: #333;
+    }
+    header {
+      background: var(--primary);
+      padding: 30px;
+      text-align: center;
+      color: white;
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+    }
+    nav {
+      text-align: center;
+      padding: 15px;
+      background: #fff;
+    }
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: var(--primary);
+      font-weight: 600;
+    }
+    main {
+      max-width: 1000px;
+      margin: 20px auto;
+      padding: 0 15px;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      margin-bottom: 20px;
+    }
+    .cta {
+      display: inline-block;
+      padding: 10px 18px;
+      background: var(--primary);
+      color: white;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 600;
+      margin-top: 10px;
+      border: none;
+      cursor: pointer;
+    }
+    .pill {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--secondary);
+      font-size: 0.8rem;
+      margin-right: 5px;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #777;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0 10px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      font: inherit;
+    }
+    label {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .success {
+      color: #2ecc71;
+      font-size: 0.9rem;
+      margin-top: 5px;
+    }
+  </style>
+</head>
 
+<body>
+  <header>
+    <h1>StudyBuddy</h1>
+    <p>Bijles door studenten, voor studenten – gezellig, duidelijk en betaalbaar.</p>
+  </header>
+
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#tutors">Tutors</a>
+    <a href="#zoek-bijles">Ik zoek bijles</a>
+    <a href="#geef-bijles">Ik wil bijles geven</a>
+  </nav>
+
+  <main id="home">
+    <section class="card">
+      <h2>Vind jouw StudyBuddy</h2>
+      <p>Zoek een tutor op vak, universiteit of prijs.</p>
+      <input id="searchInput" type="text" placeholder="Bijv. Grondwettelijk Recht, Statistiek…">
+      <button class="cta" onclick="scrollToTutors()">Zoek tutors</button>
+    </section>
+
+    <section class="card" id="tutors">
+      <h2>Onze tutors</h2>
+      <p id="noResults" style="display:none;">Geen tutors gevonden voor deze zoekopdracht.</p>
+
+      <div class="card tutor" data-vakken="grondwettelijk recht,inleiding tot het recht" data-uni="ugent">
+        <h3>Emma – UGent</h3>
+        <span class="pill">Grondwettelijk Recht</span>
+        <span class="pill">Inleiding tot het Recht</span>
+        <p>Prijs: €15/u · Online & op campus</p>
+        <a class="cta" href="#contact">Contacteer Emma</a>
+      </div>
+
+      <div class="card tutor" data-vakken="statistiek,wiskunde" data-uni="ku leuven">
+        <h3>Lucas – KU Leuven</h3>
+        <span class="pill">Statistiek</span>
+        <span class="pill">Wiskunde 1</span>
+        <p>Prijs: €12/u · Online</p>
+        <a class="cta" href="#contact">Contacteer Lucas</a>
+      </div>
+    </section>
+
+    <section class="card" id="zoek-bijles">
+      <h2>Ik zoek bijles</h2>
+      <form id="zoekForm">
+        <label>Naam</label>
+        <input type="text" name="naam" required>
+        <label>E-mail</label>
+        <input type="email" name="email" required>
+        <label>Vak</label>
+        <input type="text" name="vak" required>
+        <label>Korte beschrijving</label>
+        <textarea rows="3" name="beschrijving" required></textarea>
+        <label>Voorkeur</label>
+        <select name="voorkeur">
+          <option>Online</option>
+          <option>Op campus</option>
+          <option>Maakt niet uit</option>
+        </select>
+        <button class="cta" type="submit">Verzoek versturen</button>
+        <div id="zoekSuccess" class="success" style="display:none;">
+          Je verzoek is genoteerd (demo). In een echte versie wordt dit naar de server gestuurd.
+        </div>
+      </form>
+    </section>
+
+    <section class="card" id="geef-bijles">
+      <h2>Ik wil bijles geven</h2>
+      <form id="geefForm">
+        <label>Naam</label>
+        <input type="text" name="naam" required>
+        <label>Universiteit / Hogeschool</label>
+        <input type="text" name="uni" required>
+        <label>Vakken</label>
+        <input type="text" name="vakken" required>
+        <label>Prijs per uur</label>
+        <input type="text" name="prijs" required>
+        <label>Korte bio</label>
+        <textarea rows="3" name="bio" required></textarea>
+        <button class="cta" type="submit">Aanmelden als tutor</button>
+        <div id="geefSuccess" class="success" style="display:none;">
+          Je aanmelding is genoteerd (demo). In een echte versie wordt dit opgeslagen in de database.
+        </div>
+      </form>
+    </section>
+
+    <section class="card" id="contact">
+      <h2>Contact</h2>
+      <p>Voor vragen of samenwerkingen:</p>
+      <p><strong>E-mail:</strong> info@studybuddy.example</p>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 StudyBuddy – Studenten helpen elkaar
+  </footer>
+
+  <script>
+    function scrollToTutors() {
+      document.getElementById('tutors').scrollIntoView({ behavior: 'smooth' });
+      filterTutors();
+    }
+
+    function filterTutors() {
+      const query = document.getElementById('searchInput').value.toLowerCase().trim();
+      const tutors = document.querySelectorAll('.tutor');
+      let visibleCount = 0;
+
+      tutors.forEach(tutor => {
+        const vakken = tutor.getAttribute('data-vakken');
+        const uni = tutor.getAttribute('data-uni');
+        if (!query || vakken.includes(query) || uni.includes(query)) {
+          tutor.style.display = 'block';
+          visibleCount++;
+        } else {
+          tutor.style.display = 'none';
+        }
+      });
+
+      document.getElementById('noResults').style.display = visibleCount === 0 ? 'block' : 'none';
+    }
+
+    document.getElementById('zoekForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      document.getElementById('zoekSuccess').style.display = 'block';
+      this.reset();
+    });
+
+    document.getElementById('geefForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      document.getElementById('geefSuccess').style.display = 'block';
+      this.reset();
+    });
+  </script>
+</body>
+</html>
