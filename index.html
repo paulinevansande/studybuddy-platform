@@ -226,5 +226,67 @@
       this.reset();
     });
   </script>
+  <script>
+  const SUPABASE_URL = "https://pqdfayjgwgijvnbdlrgk.supabase.co"; 
+  const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...";
+
+  async function saveTutor(data) {
+    await fetch(`${SUPABASE_URL}/rest/v1/tutors`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": SUPABASE_KEY,
+        "Authorization": `Bearer ${SUPABASE_KEY}`
+      },
+      body: JSON.stringify(data)
+    });
+  }
+
+  async function saveRequest(data) {
+    await fetch(`${SUPABASE_URL}/rest/v1/requests`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": SUPABASE_KEY,
+        "Authorization": `Bearer ${SUPABASE_KEY}`
+      },
+      body: JSON.stringify(data)
+    });
+  }
+
+  // Form: Ik wil bijles geven
+  document.getElementById("geefForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const formData = {
+      naam: this.naam.value,
+      uni: this.uni.value,
+      vakken: this.vakken.value,
+      prijs: this.prijs.value,
+      bio: this.bio.value
+    };
+
+    await saveTutor(formData);
+    alert("Tutor opgeslagen!");
+    this.reset();
+  });
+
+  // Form: Ik zoek bijles
+  document.getElementById("zoekForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const formData = {
+      naam: this.naam.value,
+      email: this.email.value,
+      vak: this.vak.value,
+      beschrijving: this.beschrijving.value,
+      voorkeur: this.voorkeur.value
+    };
+
+    await saveRequest(formData);
+    alert("Verzoek opgeslagen!");
+    this.reset();
+  });
+</script>
 </body>
 </html>
